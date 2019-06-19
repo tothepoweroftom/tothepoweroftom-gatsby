@@ -1,17 +1,30 @@
 @import "~bulma/sass/utilities/initial-variables"
-
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
 // Config vars
 // Kaldi logo brand color: #FD461E
-$kaldi-red: #D64000
+$kaldi-red: #999999
 $kaldi-red-invert: #fff
 
 $primary: $kaldi-red
 $primary-invert: $kaldi-red-invert
-$body-color: #333
+$body-color: #555
 $black: #2b2523
+
+body, html 
+  font-family: 'Montserrat', sans-serif !important
+
 
 .navbar .navbar-menu
   box-shadow:none !important
+  font-family: 'Montserrat', sans-serif !important
+  font-weight: 700
+
+.navbar-menu
+  padding-right: 60px
+  text-align: center
+
+.navbar-item
+  font-size: 15px
 
 .content .taglist
   list-style: none
@@ -23,6 +36,7 @@ $black: #2b2523
   flex-wrap: wrap
   justify-content: left
   align-items: center
+
   li
     padding: 0 2rem 1rem 0
     margin-bottom: 1.5rem
