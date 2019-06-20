@@ -19,7 +19,7 @@ export const IndexPageTemplate = ({
 }) => (
   <div>
     <div
-      className="full-width-image-container margin-top-0"
+      className="full-width-height-image-container margin-top-0"
 
     
     >
