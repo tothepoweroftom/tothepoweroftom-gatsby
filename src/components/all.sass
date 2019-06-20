@@ -13,11 +13,27 @@ $black: #2b2523
 body, html 
   font-family: 'Montserrat', sans-serif !important
 
+span.header
+  font-family: 'Montserrat', sans-serif
+  position: absolute
+  display: inline-block
+  width: 500px
+  top: 50%
+  transform: translate3d(0, -50%, 0)
+  left: 50px
+
+  font-weight: bold
+  font-size: 4em
+  line-height: 1em
+  padding: 20px
+  max-width: 80vw
+
 
 .navbar .navbar-menu
   box-shadow:none !important
   font-family: 'Montserrat', sans-serif !important
   font-weight: 700
+  background: transparent
 
 .navbar-menu
   padding-right: 60px
@@ -75,10 +91,10 @@ body, html
     border-radius: .25rem
     text-decoration: none
     font-weight: 700
-    color: #CC3700
+    color: #176025
     text-align: center
-    -webkit-box-shadow: inset 0 0 0 2px #CC3700
-    box-shadow: inset 0 0 0 2px #f40
+    -webkit-box-shadow: inset 0 0 0 2px #176025
+    box-shadow: inset 0 0 0 2px #176025
     -webkit-transition: all .15s ease
     transition: all .15s ease
 
@@ -121,14 +137,18 @@ $menu-label-color: $white-ter
     border-radius: 1em
     background-color: $white-ter
     margin: .5em
-    width: 1em
-    height: 1em
+    width: 2em
+    height: 2em
     vertical-align: middle
     display: inline
 
 // blog roll
+.blog-list-item
+  border-radius: 0
+  background-color: #00000000;
+
 .blog-list-item.is-featured
-  background-color: #d6400033;
+  background-color: #00000000;
 .blog-list-item header
   display: flex;
   margin-bottom: 1em;
@@ -152,3 +172,6 @@ $menu-label-color: $white-ter
     text-align: center;
     max-width: 70%;
     margin: 0 0 1em;
+
+.tile
+  border-radius: 0px

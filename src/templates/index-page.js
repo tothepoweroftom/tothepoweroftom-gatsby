@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import { Link, graphql } from 'gatsby'
 
 import Layout from '../components/Layout'
+import Opening from '../components/opening'
+
 import Features from '../components/Features'
 import BlogRoll from '../components/BlogRoll'
 
@@ -17,11 +19,11 @@ export const IndexPageTemplate = ({
 }) => (
   <div>
     <div
-      className=" margin-top-0"
+      className="full-width-image-container margin-top-0"
 
     
     >
-
+      <Opening></Opening>
     </div>
     <section className="section section--gradient">
       <div className="container">
