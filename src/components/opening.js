@@ -19,7 +19,7 @@ function Fatline() {
   // Calculate wiggly curve
   const [curve] = useState(() => {
     let pos = new THREE.Vector3(30 - 60 * Math.random(), -5, 10 - 20 * Math.random())
-    return new Array(30).fill().map(() => pos.add(new THREE.Vector3(2 - Math.random() * 4, 4 - Math.random() * 2, 5 - Math.random() * 10)).clone())
+    return new Array(60).fill().map(() => pos.add(new THREE.Vector3(2 - Math.random() * 4, 4 - Math.random() * 2, 5 - Math.random() * 10)).clone())
   })
   // Hook into the render loop and decrease the materials dash-offset
   useRender(() => (material.current.uniforms.dashOffset.value -= 0.0005))
@@ -28,7 +28,7 @@ function Fatline() {
       {/** MeshLine and CMRCurve are a OOP factories, not scene objects, hence all the imperative code in here :-( */}
       <meshLine onUpdate={self => (self.parent.geometry = self.geometry)}>
         <geometry onUpdate={self => self.parent.setGeometry(self)}>
-          <catmullRomCurve3 args={[curve]} onUpdate={self => (self.parent.vertices = self.getPoints(500))} />
+          <catmullRomCurve3 args={[curve]} onUpdate={self => (self.parent.vertices = self.getPoints(1000))} />
         </geometry>
       </meshLine>
       {/** MeshLineMaterial on the other hand is a regular material, so we can just attach it */}
@@ -41,7 +41,7 @@ function Scene() {
   let group = useRef()
   let theta = 0
   // Hook into the render loop and rotate the scene a bit
-  useRender(() => group.current.rotation.set( 0.1 * Math.sin(THREE.Math.degToRad((theta += 0.2))), 0,  - 0.5 + 0.5 * Math.sin(THREE.Math.degToRad((theta)))))
+  useRender(() => group.current.rotation.set( 0.1 * Math.sin(THREE.Math.degToRad((theta += 0.01))), 0,  - 0.5 + 0.5 * Math.sin(THREE.Math.degToRad((theta)))))
   return (
     <group ref={group}>
       {lines.map((_, index) => (
@@ -54,10 +54,9 @@ function Scene() {
 export default function Opening() {
   return (
     <div style={{width: '100vw', height: '100vh'}}>
-      <Canvas style={{ background: '#ffffff' }} camera={{ position: [0, 50, 20], fov: 75 }}>
+      <Canvas style={{ background: '#ffffff' }} camera={{ position: [0, 50, 20], fov: 60 }}>
         <Scene />
       </Canvas>
-      <span class="header">Music, Technology & Code</span>
     </div>
   )
 }
