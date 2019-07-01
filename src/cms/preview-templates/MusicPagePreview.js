@@ -5,7 +5,8 @@ import { MusicPageTemplate } from '../../templates/music-page'
 const MusicPagePreview = ({ entry, getAsset }) => {
   const entryBlurbs = entry.getIn(['data', 'intro', 'blurbs'])
   const blurbs = entryBlurbs ? entryBlurbs.toJS() : []
-
+  const lhommemoyenAlbums = entry.getIn(['data', 'lhommemoyen', 'albums'])
+  const albumsLhomme = lhommemoyenAlbums ? lhommemoyenAlbums.toJS() : []
   const entryTestimonials = entry.getIn(['data', 'testimonials'])
   const testimonials = entryTestimonials ? entryTestimonials.toJS() : []
 
@@ -16,7 +17,7 @@ const MusicPagePreview = ({ entry, getAsset }) => {
     <MusicPageTemplate
       image={entry.getIn(['data', 'image'])}
       title={entry.getIn(['data', 'title'])}
-     
+      lhommemoyen = {albumsLhomme}
     />
   )
 }

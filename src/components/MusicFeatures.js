@@ -2,35 +2,49 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import PreviewCompatibleImage from './PreviewCompatibleImage'
 
-const FeatureGrid = ({ gridItems }) => (
+import SpotifyPlayer from 'react-spotify-player';
+const size = {
+  width: '100%',
+  height: 350,
+};
+const view = 'list'; // or 'coverart'
+const theme = 'white'; // or 'white'
+
+
+const MusicGrid = ({ gridItems }) => (
   <div className="columns is-multiline">
     {gridItems.map(item => (
       <div key={item.text} className="column is-6">
         <section className="section">
-          <div className="has-text-centered">
+          <div className="has-text-centered full-width-image-container">
             <div
-              style={{
-                width: '240px',
-                display: 'inline-block',
-              }}
+              // style={{
+              //   width: '350px',
+              //   // display: 'inline-block',
+              // }}
             >
-              <PreviewCompatibleImage imageInfo={item} />
+              <SpotifyPlayer
+                uri={item.uri}
+                size={size}
+                view={view}
+                theme={theme}
+              />
             </div>
           </div>
-          <p>{item.text}</p>
         </section>
       </div>
     ))}
   </div>
 )
 
-FeatureGrid.propTypes = {
+MusicGrid.propTypes = {
   gridItems: PropTypes.arrayOf(
     PropTypes.shape({
-      image: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
       text: PropTypes.string,
+      uri: PropTypes.string,
+
     })
   ),
 }
 
-export default FeatureGrid
+export default MusicGrid

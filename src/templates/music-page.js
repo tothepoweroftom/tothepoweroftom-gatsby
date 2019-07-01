@@ -10,11 +10,20 @@ import PreviewCompatibleImage from '../components/PreviewCompatibleImage'
 export const MusicPageTemplate = ({
   image,
   title,
- 
+  heading,
+  description,
+  intro,
+  lhommemoyen,
+  testimonials,
+  fullImage,
+  pricing,
 }) => (
   <div className="content">
     <div
       className="full-width-image-container margin-top-0"
+      style={{
+
+      }}
     >
       <h2
         className="has-text-weight-bold is-size-1"
@@ -27,8 +36,24 @@ export const MusicPageTemplate = ({
       >
         {title}
       </h2>
-
     </div>
+    <section className="section section--gradient">
+      <div className="container">
+        <div className="section">
+      
+          <div className="columns">
+            <div className="column is-10 is-offset-1">
+              <Features gridItems={intro.blurbs} />
+              <div className="columns">
+                  
+              </div>
+              
+        
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 )
 
@@ -40,20 +65,8 @@ MusicPageTemplate.propTypes = {
   intro: PropTypes.shape({
     blurbs: PropTypes.array,
   }),
-  main: PropTypes.shape({
-    heading: PropTypes.string,
-    description: PropTypes.string,
-    image1: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-    image2: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-    image3: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  }),
-  testimonials: PropTypes.array,
-  fullImage: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  pricing: PropTypes.shape({
-    heading: PropTypes.string,
-    description: PropTypes.string,
-    plans: PropTypes.array,
-  }),
+
+
 }
 
 const MusicPage = ({ data }) => {
@@ -67,10 +80,8 @@ const MusicPage = ({ data }) => {
         heading={frontmatter.heading}
         description={frontmatter.description}
         intro={frontmatter.intro}
-        main={frontmatter.main}
-        testimonials={frontmatter.testimonials}
-        fullImage={frontmatter.full_image}
-        pricing={frontmatter.pricing}
+        lhommemoyen={frontmatter.lhommemoyen}
+
       />
     </Layout>
   )
@@ -102,13 +113,7 @@ export const musicPageQuery = graphql`
         description
         intro {
           blurbs {
-            image {
-              childImageSharp {
-                fluid(maxWidth: 240, quality: 64) {
-                  ...GatsbyImageSharpFluid
-                }
-              }
-            }
+            uri
             text
           }
           heading

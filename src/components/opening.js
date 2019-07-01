@@ -56,7 +56,7 @@ function Scene() {
 export default function Opening() {
   return (
     <div style={{width: '100vw', height: '100vh'}}>
-      <Canvas style={{ background: '#ffffff' }} camera={{ position: [0, 50, 20], fov: 75 }}>
+      <Canvas style={{ background: '#ffffff' }} camera={{ position: [0, 50, 20], fov: 75 }} pixelRatio = {window.devicePixelRatio} >
         <Scene />
       </Canvas>
     </div>
