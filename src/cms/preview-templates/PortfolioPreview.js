@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { PortfolioPageTemplate } from '../../templates/portfolio'
+import { PortfolioPageTemplate } from '../../templates/portfolio-page'
 
 const PortfolioPreview = ({ entry, getAsset }) => {
   const entryBlurbs = entry.getIn(['data', 'intro', 'blurbs'])
