@@ -1,7 +1,7 @@
 ---
 templateKey: 'portfolio-page'
 path: /portfolio
-title: Our Coffee
+title: Portfolio
 image: /img/jumbotron.jpg
 heading: Great coffee with a conscience
 description: >-

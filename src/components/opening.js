@@ -15,7 +15,7 @@ function Fatline() {
   const material = useRef()
   const [color] = useState(() => colors[parseInt(colors.length * Math.random())])
   const [ratio] = useState(() => 0.5 + 0.5 * Math.random())
-  const [width] = useState(() => 0.05 * Math.random())
+  const [width] = useState(() => 0.1 * Math.random())
   const [opacity] = useState(() => 0.1 + 0.5 * Math.random())
 
   // Calculate wiggly curve
@@ -56,7 +56,7 @@ function Scene() {
 export default function Opening() {
   return (
     <div style={{width: '100vw', height: '100vh'}}>
-      <Canvas style={{ background: '#ffffff' }} camera={{ position: [0, 50, 20], fov: 60 }}>
+      <Canvas style={{ background: '#ffffff' }} camera={{ position: [0, 50, 20], fov: 75 }}>
         <Scene />
       </Canvas>
     </div>

@@ -1,7 +1,7 @@
 ---
 templateKey: 'music-page'
 path: /music
-title: Our Coffee
+title: Music
 image: /img/jumbotron.jpg
 heading: Great coffee with a conscience
 description: >-
