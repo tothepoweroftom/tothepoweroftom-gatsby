@@ -6,13 +6,21 @@
 $kaldi-red: #999999
 $kaldi-red-invert: #fff
 
-$primary: $kaldi-red
-$primary-invert: $kaldi-red-invert
-$body-color: #555
+$primary: #ffffff
+$primary-invert: #000000
+$body-color: #000
 $black: #2b2523
 
 body, html 
   font-family: 'Montserrat', sans-serif !important
+  background: $body-color !important
+  color: $primary !important
+
+.title 
+  color: $primary
+
+.content h1
+  color: $primary !important
 
 span.header
   // font-family: 'Playfair Display SC', sans-serif
@@ -30,12 +38,18 @@ span.header
   padding: 20px
   max-width: 80vw
 
+.navbar-dark 
+  background-color: white
+  min-height: 3.25rem
+  position: relative
+  z-index: 30
 
 .navbar .navbar-menu
   box-shadow:none !important
   font-family: 'Montserrat', sans-serif !important
   font-weight: 400
-  background: transparent
+  background: $body-color !important
+  color: $primary
 
 .navbar-menu
   padding-right: 60px
@@ -43,6 +57,12 @@ span.header
 
 .navbar-item
   font-size: 15px
+  color: $primary !important
+
+.input .text-area
+  background: $body-color !important
+  color: $primary !important
+
 
 .content .taglist
   list-style: none
@@ -126,18 +146,22 @@ span.header
 .navbar-brand .navbar-item.logo
   padding: 0 1rem
 footer.footer
-  padding: 3rem 0rem 0rem
+  padding: 0rem 0rem 0rem
   background-color: transparent
 
 //Menu overrides
-$menu-item-color: $white-ter
+$menu-item-color: $black
 $menu-item-hover-color: $black !important
-$menu-item-hover-background-color: $black
+$menu-item-hover-background-color: $black !important
 $menu-item-active-color: $kaldi-red-invert
 $menu-item-active-background-color:	$kaldi-red-invert
 $menu-list-border-left: 1px solid $kaldi-red-invert
 $menu-label-color: $white-ter
 
+
+a.navbar-item:focus a.navbar-item:focus-within a.navbar-item:hover a.navbar-item.is-active
+  background: #333333 !important
+  color: #aa0000 !important
 
 .menu-label
   font-size: 1em !important

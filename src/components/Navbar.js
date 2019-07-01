@@ -35,9 +35,10 @@ const Navbar = class extends React.Component {
   render() {
     return (
       <nav
-        className="navbar is-transparent"
+        className="navbar is-black"
         role="navigation"
         aria-label="main-navigation"
+        style={{background: "black"}}
       >
         <div className="container">
           <div className="navbar-brand">
