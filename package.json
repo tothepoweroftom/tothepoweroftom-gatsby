@@ -35,7 +35,8 @@
     "react-three-fiber": "2.0.0",
     "three": "latest",
     "three.meshline": "1.2.0",
-    "uuid": "^3.2.1"
+    "uuid": "^3.2.1",
+    "webgl-detect": "0.0.1"
   },
   "keywords": [
     "gatsby"
