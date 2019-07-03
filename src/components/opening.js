@@ -104,7 +104,7 @@ export default function Opening() {
               
               
               <div className="column is-12 social">
-                <a title="twitter" href="https://twitter.com/tothepoweroftom">
+                <a title="twitter" target="_blank" href="https://twitter.com/tothepoweroftom">
                   <img
                     className="fas fa-lg"
                     src={twitter}
@@ -112,7 +112,7 @@ export default function Opening() {
                     style={{ width: '1em', height: '1em' }}
                   />
                 </a>
-                <a title="instagram" href="https://instagram.com">
+                <a title="instagram" target="_blank" href="https://instagram.com/tothepoweroftom">
                   <img
                     src={instagram}
                     alt="Instagram"
