@@ -11,7 +11,7 @@ const Footer = class extends React.Component {
   render() {
     return (
       <footer className="footer ">
-        <div className="content has-text-centered">
+        {/* <div className="content has-text-centered">
       
         </div>
         <div className="content has-text-centered ">
@@ -52,7 +52,7 @@ const Footer = class extends React.Component {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </footer>
     )
   }
