@@ -64,6 +64,7 @@ class MusicRoll extends React.Component {
               {post.frontmatter.featuredimage ? (
                     
                     <div className="featured-album" style={{padding: "0px"}}>
+
                       <PreviewCompatibleImage
                         imageInfo={{
                           image: post.frontmatter.featuredimage,
@@ -73,10 +74,10 @@ class MusicRoll extends React.Component {
                         }}
                       />
                     </div>
-                  ) : null}
+                  ) : console.log(post)}
                     {/* <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' wrapped ui={false} /> */}
                     <Card.Content>
-                      <p className="post-meta">
+                      <div className="post-meta">
                           <h4
                             className="album-title has-text-primary "
                             to={post.fields.slug}
@@ -86,7 +87,7 @@ class MusicRoll extends React.Component {
                           <span className="subtitle is-size-10 is-block">
                             {post.frontmatter.date}
                           </span>
-                        </p>
+                        </div>
                     </Card.Content>
               </Link>
 
