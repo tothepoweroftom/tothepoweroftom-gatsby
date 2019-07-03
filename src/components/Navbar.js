@@ -1,5 +1,7 @@
 import React from 'react'
-import { Link } from 'gatsby'
+import {Link} from "gatsby"
+
+import AniLink from "gatsby-plugin-transition-link/AniLink"
 import github from '../img/github-icon.svg'
 import logo from '../img/logo.png'
 
@@ -61,24 +63,24 @@ const Navbar = class extends React.Component {
             className={`navbar-menu ${this.state.navBarActiveClass}`}
           >
             <div className="navbar-start has-text-centered">
-              <Link className="navbar-item" to="/about">
+              <AniLink fade className="navbar-item" to="/about">
                 About
-              </Link>
-              <Link className="navbar-item" to="/music">
+              </AniLink>
+              <AniLink fade className="navbar-item" to="/music">
                 Music
-              </Link>
-              {/* <Link className="navbar-item" to="/products">
+              </AniLink>
+              {/* <AniLink fade className="navbar-item" to="/products">
                 Products
-              </Link> */}
-              <Link className="navbar-item" to="/portfolio">
+              </AniLink> */}
+              <AniLink fade className="navbar-item" to="/portfolio">
                 Portfolio
-              </Link>
-              <Link className="navbar-item" to="/blog">
+              </AniLink>
+              <AniLink fade className="navbar-item" to="/blog">
                 Blog
-              </Link>
-              <Link className="navbar-item" to="/contact">
+              </AniLink>
+              <AniLink fade className="navbar-item" to="/contact">
                 Contact
-              </Link>
+              </AniLink>
   
             </div>
             <div className="navbar-end has-text-centered">
