@@ -1,6 +1,7 @@
 ---
 templateKey: about-page
 title: About
+image: /img/lhommemoyen.jpg
 ---
 My name is Thomas Power. I'm a composer and creative developer from the most westerly town in Ireland, Dingle. Growing up in such a place has profoundly effected my life and music. Dark cloudy skies and days of endless rain are the inspiration for all of the music you can find here.
 
@@ -27,3 +28,6 @@ I also work as a Creative Technologist. I combine my technical background in mat
 * Embedded systems (Raspberry Pi, BeagleBoard), Sensors, Motors
 * Motion Tracking, Skeleton Tracking
 * Touchdesigner
+
+
+
