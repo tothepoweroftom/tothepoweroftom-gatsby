@@ -6,6 +6,10 @@ description: Suaimhneas is an album about tranquility.
 featuredpost: true
 featuredimage: /img/suaimhneas.jpg
 tags:
-  - lhomme
+  - lhomme moyen
+  - suaimhneas
+  - ambient
+  - music
+  - ''
 ---
 This an album
