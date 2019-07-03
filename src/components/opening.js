@@ -1,184 +1,65 @@
 import ReactDOM from 'react-dom'
 import * as THREE from 'three'
-import React, { useState,useRef, useEffect, useCallback, useMemo } from 'react'
-import { apply as applyThree, Canvas, useRender, useThree } from 'react-three-fiber'
-import { apply as applySpring, useSpring, a, interpolate } from 'react-spring/three'
-// They'll be available as native elements <effectComposer /> from then on ...
-import { EffectComposer } from './postprocessing/EffectComposer'
-import { RenderPass } from './postprocessing/RenderPass'
-import { FilmPass } from './postprocessing/FilmPass'
-applySpring({ EffectComposer, RenderPass, FilmPass })
-applyThree({ EffectComposer, RenderPass, FilmPass })
+import React, { useState, useRef } from 'react'
+import { apply, Canvas, useRender } from 'react-three-fiber'
+import * as meshline from 'three.meshline'
 
-/** This component loads an image and projects it onto a plane */
-function Image({ url, opacity, scale, ...props }) {
-  const texture = useMemo(() => new THREE.TextureLoader().load(url), [url])
-  const [hovered, setHover] = useState(false)
-  const hover = useCallback(() => setHover(true), [])
-  const unhover = useCallback(() => setHover(false), [])
-  const { factor } = useSpring({ factor: hovered ? 1.1 : 1 })
-  return (
-    <a.mesh {...props} onHover={hover} onUnhover={unhover} scale={factor.interpolate(f => [scale * f, scale * f, 1])}>
-      <planeBufferGeometry attach="geometry" args={[5, 5]} />
-      <a.meshLambertMaterial attach="material" transparent opacity={opacity}>
-        <primitive attach="map" object={texture} />
-      </a.meshLambertMaterial>
-    </a.mesh>
-  )
-}
+apply(meshline)
 
-/** This renders text via canvas and projects it as a sprite */
-function Text({ children, position, opacity, color = '#aaaaaa', fontSize = 410, rotation=-0.02, padding }) {
-  const {
-    size: { width, height },
-    viewport: { width: viewportWidth, height: viewportHeight }
-  } = useThree()
-  const scale = viewportWidth > viewportHeight ? viewportWidth : viewportHeight
-  const canvas = useMemo(() => {
-    const canvas = document.createElement('canvas')
-    canvas.style.marginTop = padding;
-    canvas.width = canvas.height = 2048
-    const context = canvas.getContext('2d')
-    context.font = `${fontSize + viewportWidth/20}px \'Archivo Black\', sans-serif`
-    context.textAlign = 'center'
-    context.textBaseline = 'middle'
-    context.rotate(rotation)
-    context.fillStyle = color
-    context.fillText(children, 1024, 1024 - 410 / 2)
-    return canvas
-  }, [children, width, height])
-  return (
-    <a.sprite scale={[scale, scale, 1]} position={position}>
-      <a.spriteMaterial attach="material" transparent opacity={opacity}>
-        <canvasTexture attach="map" image={canvas} premultiplyAlpha onUpdate={s => (s.needsUpdate = true)} />
-      </a.spriteMaterial>
-    </a.sprite>
-  )
-}
+const numLines = 500
+const lines = new Array(numLines).fill()
+const colors = ['#333333', '#aa1111', '#999999', '#aaaaaa']
 
-/** This component creates a fullscreen colored plane */
-function Background({ color }) {
-  const { viewport } = useThree()
+
+function Fatline() {
+  const material = useRef()
+  const [color] = useState(() => colors[parseInt(colors.length * Math.random())])
+  const [ratio] = useState(() => 0.5 + 0.5 * Math.random())
+  const [width] = useState(() => 0.1 * Math.random())
+  const [opacity] = useState(() => 0.1 + 0.5 * Math.random())
+
+  // Calculate wiggly curve
+  const [curve] = useState(() => {
+    let pos = new THREE.Vector3(30 - 60 * Math.random(), -5, 10 - 20 * Math.random())
+    return new Array(60).fill().map(() => pos.add(new THREE.Vector3(2 - Math.random() * 4, 4 - Math.random() * 2, 20 - Math.random() * 40)).clone())
+  })
+  // Hook into the render loop and decrease the materials dash-offset
+  useRender(() => (material.current.uniforms.dashOffset.value -= 0.00005))
   return (
-    <mesh scale={[viewport.width, viewport.height, 1]}>
-      <planeGeometry attach="geometry" args={[1, 1]} />
-      <a.meshBasicMaterial attach="material" color={color} depthTest={false} />
+    <mesh>
+      {/** MeshLine and CMRCurve are a OOP factories, not scene objects, hence all the imperative code in here :-( */}
+      <meshLine onUpdate={self => (self.parent.geometry = self.geometry)}>
+        <geometry onUpdate={self => self.parent.setGeometry(self)}>
+          <catmullRomCurve3 args={[curve]} onUpdate={self => (self.parent.vertices = self.getPoints(50))} />
+        </geometry>
+      </meshLine>
+      {/** MeshLineMaterial on the other hand is a regular material, so we can just attach it */}
+      <meshLineMaterial attach="material" ref={material} transparent depthTest={false} lineWidth={width} color={color} dashArray={0.1} dashRatio={ratio} />
     </mesh>
   )
 }
 
-/** This component rotates a bunch of stars */
-function Stars({ position }) {
+function Scene() {
   let group = useRef()
   let theta = 0
-  useRender(() => {
-    const r = 5 * Math.sin(THREE.Math.degToRad((theta += 0.04)))
-    // const s = Math.cos(THREE.Math.degToRad(theta))
-    group.current.rotation.set(r, r, r)
-    // group.current.scale.set(s, s, s)
-  })
-
-
-  const [geo, mat, coords] = useMemo(() => {
-    let geo;
-    let mat;
-    if(Math.random() < 0.5) {
-      geo = new THREE.IcosahedronBufferGeometry(2, 0)
-      mat = new THREE.MeshStandardMaterial({ color: new THREE.Color('green'), opacity: 0.5, transparent: true })
-
-    } else {
-      geo = new THREE.SphereBufferGeometry(2,10, 10)
-      mat = new THREE.MeshStandardMaterial({ color: new THREE.Color('red'),opacity: 0.5, transparent: true })
-
-    }
-    const coords = new Array(1000).fill().map(i => [Math.random() * 800 - 400, Math.random() * 800 - 400, Math.random() * 800 - 400])
-    return [geo, mat, coords]
-  }, [])
+  // Hook into the render loop and rotate the scene a bit
+  useRender(() => group.current.rotation.set( 0, 0,  0 + 0.5 * Math.sin(THREE.Math.degToRad((theta+=0.1)))))
   return (
-    <a.group ref={group} position={position}>
-      {coords.map(([p1, p2, p3], i) => (
-        <mesh key={i} geometry={geo} material={mat} position={[p1, p2, p3]} />
+    <group ref={group}>
+      {lines.map((_, index) => (
+        <Fatline key={index} />
       ))}
-
-
-    </a.group>
+    </group>
   )
 }
-
-function Sun({ position }) {
-  let group = useRef()
-  let theta = 0
-  useRender(() => {
-    const r = 5 * Math.sin(THREE.Math.degToRad((theta += 0.01)))
-    const s = 1*Math.cos(THREE.Math.degToRad(theta * 2))
-    group.current.rotation.set(r, r, r)
-    group.current.scale.set(s, s, s)
-  })
-    const geo = new THREE.SphereBufferGeometry(100, 10, 10)
-    const mat = new THREE.MeshStandardMaterial({ color: new THREE.Color('yellow'), transparent: true })
-  return (
-    <a.group ref={group} position={[0,0,0]}>
-
-        <mesh key={0} geometry={geo} material={mat} position={[0,4,-10]} />
-    </a.group>
-
-  )
-}
-
-/** This component creates a glitch effect */
-const Effects = React.memo(({ factor }) => {
-  const { gl, scene, camera, size } = useThree()
-  const composer = useRef()
-  useEffect(() => void composer.current.setSize(size.width, size.height), [size])
-  // This takes over as the main render-loop (when 2nd arg is set to true)
-  useRender(() => composer.current.render(), true)
-  return (
-    <effectComposer ref={composer} args={[gl]}>
-      <renderPass attachArray="passes" args={[scene, camera]} />
-      <a.filmPass attachArray="passes" renderToScreen args={[scene, camera]} />
-    </effectComposer>
-  )
-})
-
-
-
-/** This component maintains the scene */
-function Scene({ top, mouse }) {
-  const { size } = useThree()
-  const scrollMax = size.height * 4.5
-  return (
-    <>
-      <a.spotLight intensity={1.2} color="white" position={mouse.interpolate((x, y) => [x / 100, -y / 100, 6.5])} />
-      <Effects factor={top.interpolate([0, 150], [1, 0])} />
-      <Background color={'#111111'} />
-
-      <Stars position={[0,0,0]} />
-      <Text fontSize={120}>
-        Tom Power
-      </Text>
-      <Text fontSize={50} rotation={0.0} position={[0,-1,0]}>
-        Composer & Creative Technologist
-      </Text>
-    </>
-  )
-}
-
-
 
 export default function Opening() {
-  // This tiny spring right here controlls all(!) the animations, one for scroll, the other for mouse movement ...
-  const [{ top, mouse }, set] = useSpring(() => ({ top: 0, mouse: [0, 0] }))
-  const onMouseMove = useCallback(({ clientX: x, clientY: y }) => set({ mouse: [x - window.innerWidth / 2, y - window.innerHeight / 2] }), [])
-  const onScroll = useCallback(e => set({ top: e.target.scrollTop }), [])
   return (
-    <>
-      <Canvas className="canvas">
-        <Scene top={top} mouse={mouse} />
+    <div style={{width: '100vw', height: '100vh'}}>
+      <Canvas style={{ background: '#000' }} camera={{ position: [0, 50, 20], fov: 75 }} pixelRatio = {2} >
+        <Scene />
       </Canvas>
-      <div className="scroll-container" onScroll={onScroll} onMouseMove={onMouseMove}>
-        <div style={{ height: '525vh' }} />
-      </div>
-    </>
+    </div>
   )
 }
 
