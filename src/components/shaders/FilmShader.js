@@ -60,7 +60,7 @@ var FilmShader = {
     },
     rollSpeed: {
       type: "f",
-      value: 0.05
+      value: 0.1
     },
   },
 
