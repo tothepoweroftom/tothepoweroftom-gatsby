@@ -28,7 +28,7 @@ function Image({ url, opacity, scale, ...props }) {
 }
 
 /** This renders text via canvas and projects it as a sprite */
-function Text({ children, position, opacity, color = 'white', fontSize = 410, rotation=-0.02, padding }) {
+function Text({ children, position, opacity, color = '#aaaaaa', fontSize = 410, rotation=-0.02, padding }) {
   const {
     size: { width, height },
     viewport: { width: viewportWidth, height: viewportHeight }
@@ -39,7 +39,7 @@ function Text({ children, position, opacity, color = 'white', fontSize = 410, ro
     canvas.style.marginTop = padding;
     canvas.width = canvas.height = 2048
     const context = canvas.getContext('2d')
-    context.font = `bold ${fontSize + viewportWidth/20}px MontSerrat`
+    context.font = `${fontSize + viewportWidth/20}px \'Archivo Black\', sans-serif`
     context.textAlign = 'center'
     context.textBaseline = 'middle'
     context.rotate(rotation)
@@ -72,14 +72,25 @@ function Stars({ position }) {
   let group = useRef()
   let theta = 0
   useRender(() => {
-    const r = 5 * Math.sin(THREE.Math.degToRad((theta += 0.01)))
-    const s = Math.cos(THREE.Math.degToRad(theta * 2))
+    const r = 5 * Math.sin(THREE.Math.degToRad((theta += 0.04)))
+    // const s = Math.cos(THREE.Math.degToRad(theta))
     group.current.rotation.set(r, r, r)
-    group.current.scale.set(s, s, s)
+    // group.current.scale.set(s, s, s)
   })
+
+
   const [geo, mat, coords] = useMemo(() => {
-    const geo = new THREE.SphereBufferGeometry(1, 10, 10)
-    const mat = new THREE.MeshBasicMaterial({ color: new THREE.Color('red'), transparent: true })
+    let geo;
+    let mat;
+    if(Math.random() < 0.5) {
+      geo = new THREE.IcosahedronBufferGeometry(2, 0)
+      mat = new THREE.MeshStandardMaterial({ color: new THREE.Color('green'), opacity: 0.5, transparent: true })
+
+    } else {
+      geo = new THREE.SphereBufferGeometry(2,10, 10)
+      mat = new THREE.MeshStandardMaterial({ color: new THREE.Color('red'),opacity: 0.5, transparent: true })
+
+    }
     const coords = new Array(1000).fill().map(i => [Math.random() * 800 - 400, Math.random() * 800 - 400, Math.random() * 800 - 400])
     return [geo, mat, coords]
   }, [])
@@ -88,6 +99,8 @@ function Stars({ position }) {
       {coords.map(([p1, p2, p3], i) => (
         <mesh key={i} geometry={geo} material={mat} position={[p1, p2, p3]} />
       ))}
+
+
     </a.group>
   )
 }
@@ -96,12 +109,19 @@ function Sun({ position }) {
   let group = useRef()
   let theta = 0
   useRender(() => {
-
+    const r = 5 * Math.sin(THREE.Math.degToRad((theta += 0.01)))
+    const s = 1*Math.cos(THREE.Math.degToRad(theta * 2))
+    group.current.rotation.set(r, r, r)
+    group.current.scale.set(s, s, s)
   })
     const geo = new THREE.SphereBufferGeometry(100, 10, 10)
     const mat = new THREE.MeshStandardMaterial({ color: new THREE.Color('yellow'), transparent: true })
   return (
+    <a.group ref={group} position={[0,0,0]}>
+
         <mesh key={0} geometry={geo} material={mat} position={[0,4,-10]} />
+    </a.group>
+
   )
 }
 
@@ -130,10 +150,9 @@ function Scene({ top, mouse }) {
     <>
       <a.spotLight intensity={1.2} color="white" position={mouse.interpolate((x, y) => [x / 100, -y / 100, 6.5])} />
       <Effects factor={top.interpolate([0, 150], [1, 0])} />
-      <Background color={'#000000'} />
-      <Sun />
+      <Background color={'#111111'} />
 
-      <Stars position={top.interpolate(top => [0, -1 + top / 20, 0])} />
+      <Stars position={[0,0,0]} />
       <Text fontSize={120}>
         Tom Power
       </Text>

@@ -36,7 +36,7 @@ import {
   
     this.uniforms.grayscale.value = 0.1
     this.uniforms.nIntensity.value = 1000.0
-    this.uniforms.sIntensity.value = 0.8
+    this.uniforms.sIntensity.value = 0.2
     this.uniforms.sCount.value = 500
   
     this.enabled = true
