@@ -1,32 +1,21 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { PortfolioPageTemplate } from '../../templates/portfolio-page'
+import { PortfolioPostTemplate } from '../../templates/portfolio-post'
 
-const PortfolioPreview = ({ entry, getAsset }) => {
-  const entryBlurbs = entry.getIn(['data', 'intro', 'blurbs'])
-  const blurbs = entryBlurbs ? entryBlurbs.toJS() : []
+const PortfolioPostPreview = ({ entry, widgetFor }) => (
+  <PortfolioPostTemplate
+    content={widgetFor('body')}
+    description={entry.getIn(['data', 'description'])}
+    tags={entry.getIn(['data', 'tags'])}
+    title={entry.getIn(['data', 'title'])}
+  />
+)
 
-  const entryTestimonials = entry.getIn(['data', 'testimonials'])
-  const testimonials = entryTestimonials ? entryTestimonials.toJS() : []
-
-  const entryPricingPlans = entry.getIn(['data', 'pricing', 'plans'])
-  const pricingPlans = entryPricingPlans ? entryPricingPlans.toJS() : []
-
-  return (
-    <PortfolioPageTemplate
-      image={entry.getIn(['data', 'image'])}
-      title={entry.getIn(['data', 'title'])}
-      heading={entry.getIn(['data', 'heading'])}
-
-    />
-  )
-}
-
-PortfolioPreview.propTypes = {
+PortfolioPostPreview.propTypes = {
   entry: PropTypes.shape({
     getIn: PropTypes.func,
   }),
-  getAsset: PropTypes.func,
+  widgetFor: PropTypes.func,
 }
 
-export default PortfolioPreview
+export default PortfolioPostPreview
