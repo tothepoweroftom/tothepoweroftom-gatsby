@@ -2,69 +2,45 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Link, graphql, StaticQuery } from 'gatsby'
 import PreviewCompatibleImage from './PreviewCompatibleImage'
+import StackGrid, { transitions, easings } from 'react-stack-grid';
 import { Card, Icon, Image } from 'semantic-ui-react'
 
 
-class MusicRoll extends React.Component {
+const transition = transitions.scaleDown;
+
+
+
+class PortfolioRoll extends React.Component {
   render() {
     const { data } = this.props
     const { edges: posts } = data.allMarkdownRemark
 
     return (
-      <div className="columns is-multiline">
+      <div className="">
+          <StackGrid
+            monitorImagesLoaded
+            columnWidth={300}
+            duration={600}
+            gutterWidth={10}
+            gutterHeight={10}
+            easing={easings.cubicOut}
+            appearDelay={60}
+            appear={transition.appear}
+            appeared={transition.appeared}
+            enter={transition.enter}
+            entered={transition.entered}
+            leaved={transition.leaved}
+          >
         {posts &&
           posts.map(({ node: post }) => (
-            <div className="is-parent column is-one-quarter" key={post.id}>
-              {/* <article
-                className={`blog-list-item tile is-child box notification ${
-                  post.frontmatter.featuredpost ? 'is-featured' : ''
-                }`}
-              >
-                <header>
-                  {post.frontmatter.featuredimage ? (
-                    
-                    <div className="featured-thumbnail">
-                      <PreviewCompatibleImage
-                        imageInfo={{
-                          image: post.frontmatter.featuredimage,
-                          alt: `featured image thumbnail for post ${
-                            post.title
-                          }`,
-                        }}
-                      />
-                    </div>
-                  ) : null}
-                  <p className="post-meta">
-                    <Link
-                      className="title has-text-primary is-size-4"
-                      to={post.fields.slug}
-                    >
-                      {post.frontmatter.title}
-                    </Link>
-                    <span> &bull; </span>
-                    <span className="subtitle is-size-5 is-block">
-                      {post.frontmatter.date}
-                    </span>
-                  </p>
-                </header>
-                <p>
-                  {post.excerpt}
-                  <br />
-                  <br />
-                  <Link className="button" to={post.fields.slug}>
-                    Keep Reading →
-                  </Link>
-                </p>
-              </article> */}
-
-              <Card className={`blog-list-item tile is-child box notification ${
-                  post.frontmatter.featuredpost ? 'is-featured' : ''
-                }`}>
+            
+            <div key={post.id} className={`blog-list-item tile is-child box notification ${
+              post.frontmatter.featuredpost ? 'is-featured' : ''
+            }`}>
               <Link to={post.fields.slug}>
               {post.frontmatter.featuredimage ? (
                     
                     <div className="featured-album" style={{padding: "0px"}}>
-
                       <PreviewCompatibleImage
                         imageInfo={{
                           image: post.frontmatter.featuredimage,
@@ -78,28 +54,29 @@ class MusicRoll extends React.Component {
                     {/* <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' wrapped ui={false} /> */}
                     <Card.Content>
                       <div className="post-meta">
-                          <h4
+                          <h3
                             className="album-title has-text-primary "
                             to={post.fields.slug}
                           >
                             {post.frontmatter.title}
-                          </h4>
-                          <span className="subtitle is-size-10 is-block">
+                          </h3>
+                          {/* <span className="subtitle is-size-10 is-block">
                             {post.frontmatter.date}
-                          </span>
+                          </span> */}
                         </div>
                     </Card.Content>
               </Link>
 
-              </Card>
-            </div>
-          ))}
+          </div>
+          ))
+        }
+        </StackGrid>
       </div>
     )
   }
 }
 
-MusicRoll.propTypes = {
+PortfolioRoll.propTypes = {
   data: PropTypes.shape({
     allMarkdownRemark: PropTypes.shape({
       edges: PropTypes.array,
@@ -110,10 +87,10 @@ MusicRoll.propTypes = {
 export default () => (
   <StaticQuery
     query={graphql`
-      query MusicRollQuery {
+      query PortfolioRollQuery {
         allMarkdownRemark(
           sort: { order: DESC, fields: [frontmatter___date] }
-          filter: { frontmatter: { templateKey: { eq: "music-post" } } }
+          filter: { frontmatter: { templateKey: { eq: "portfolio-post" } } }
         ) {
           edges {
             node {
@@ -140,6 +117,6 @@ export default () => (
         }
       }
     `}
-    render={(data, count) => <MusicRoll data={data} count={count} />}
+    render={(data, count) => <PortfolioRoll data={data} count={count} />}
   />
 )
