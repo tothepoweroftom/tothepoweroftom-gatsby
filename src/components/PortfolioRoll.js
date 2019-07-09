@@ -19,12 +19,12 @@ class PortfolioRoll extends React.Component {
       <div className="">
           <StackGrid
             monitorImagesLoaded
-            columnWidth={300}
-            duration={600}
+            columnWidth={350}
+            duration={200}
             gutterWidth={10}
             gutterHeight={10}
             easing={easings.cubicOut}
-            appearDelay={60}
+            appearDelay={100}
             appear={transition.appear}
             appeared={transition.appeared}
             enter={transition.enter}

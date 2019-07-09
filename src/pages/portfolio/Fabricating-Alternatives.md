@@ -1,8 +1,9 @@
 ---
 templateKey: portfolio-post
-title: Making a new website
-date: 2019-07-01T12:53:39.273Z
+title: Fabricating Alternatives
+date: 2019-06-01T12:53:39.273Z
 description: The articles.
+headerimage: /img/chemex.jpg
 featuredpost: true
 featuredimage: /img/chemex.jpg
 tags:
