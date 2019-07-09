@@ -8,6 +8,8 @@ const PortfolioPostPreview = ({ entry, widgetFor }) => (
     description={entry.getIn(['data', 'description'])}
     tags={entry.getIn(['data', 'tags'])}
     title={entry.getIn(['data', 'title'])}
+    headerimage={entry.getIn(['data', 'headerimage'])}
+
   />
 )
 
