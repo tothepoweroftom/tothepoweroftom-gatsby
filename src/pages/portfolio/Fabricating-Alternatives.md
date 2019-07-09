@@ -3,9 +3,9 @@ templateKey: portfolio-post
 title: Fabricating Alternatives
 date: 2019-06-01T12:53:39.273Z
 description: The articles.
-headerimage: /img/chemex.jpg
 featuredpost: true
-featuredimage: /img/chemex.jpg
+featuredimage: /img/products-grid1.jpg
+headerimage: /img/chemex.jpg
 tags:
   - lhomme
 ---
