@@ -12,6 +12,7 @@ class MusicRoll extends React.Component {
 
     return (
       <div className="columns is-multiline">
+
         {posts &&
           posts.map(({ node: post }) => (
             <div className="is-parent column is-one-quarter" key={post.id}>
@@ -60,7 +61,7 @@ class MusicRoll extends React.Component {
               <Card className={`blog-list-item tile is-child box notification ${
                   post.frontmatter.featuredpost ? 'is-featured' : ''
                 }`}>
-              <Link to={post.fields.slug}>
+              <a target={"_blank"} href={post.frontmatter.hyperlink}>
               {post.frontmatter.featuredimage ? (
                     
                     <div className="featured-album" style={{padding: "0px"}}>
@@ -80,7 +81,7 @@ class MusicRoll extends React.Component {
                       <div className="post-meta">
                           <h4
                             className="album-title has-text-primary "
-                            to={post.fields.slug}
+                            
                           >
                             {post.frontmatter.title}
                           </h4>
@@ -89,7 +90,7 @@ class MusicRoll extends React.Component {
                           </span>
                         </div>
                     </Card.Content>
-              </Link>
+              </a>
 
               </Card>
             </div>
@@ -125,8 +126,9 @@ export default () => (
               frontmatter {
                 title
                 templateKey
-                date(formatString: "MMMM DD, YYYY")
+                date(formatString: "YYYY")
                 featuredpost
+                hyperlink
                 featuredimage {
                   childImageSharp {
                     fluid(maxWidth: 300, quality: 100) {
