@@ -40,8 +40,6 @@
     "react-stack-grid": "^0.7.1",
     "react-text-fun": "^1.0.0",
     "react-three-fiber": "2.0.0",
-    "react-youtube": "^7.9.0",
-    "react-youtube-background": "^0.1.4",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.87.2",
     "three": "latest",

@@ -2,7 +2,7 @@ import React from 'react'
 
 import Layout from '../../components/Layout'
 import MusicRoll from '../../components/MusicRoll'
-import YoutubeBackground from 'react-youtube-background'
+// import YoutubeBackground from 'react-youtube-background'
 
 export default class MusicIndexPage extends React.Component {
   
@@ -10,11 +10,11 @@ export default class MusicIndexPage extends React.Component {
     return (
       <Layout>
         <a target={"_blank"} href={"https://www.youtube.com/watch?v=tjv_8akjVEU"}>
-             <YoutubeBackground 
+             {/* <YoutubeBackground 
             videoId={'tjv_8akjVEU'}     // default -> "jssO8-5qmag"
             overlay={"rgba(0,0,0,.5)"}       // defaults -> null | e.g. "rgba(0,0,0,.4)"
             
-          >
+          > */}
         <div
           className="full-width-image-container margin-top-0"
   
@@ -35,7 +35,7 @@ export default class MusicIndexPage extends React.Component {
 
         </div>
 
-        </YoutubeBackground>
+        {/* </YoutubeBackground> */}
         </a>
 
         <section className="section">
