@@ -77,7 +77,7 @@ function Scene() {
   let group = useRef()
   let theta = 0
   // Hook into the render loop and rotate the scene a bit
-  useRender(() => group.current.rotation.set( 0, 0,  0 + 0.5 * Math.sin(THREE.Math.degToRad((theta+=0.1)))))
+  useRender(() => group.current.rotation.set( 0, 0,  0 + 0.5 * Math.sin(THREE.Math.degToRad((theta+=0.01)))))
   return (
     <group ref={group}>
       {lines.map((_, index) => (

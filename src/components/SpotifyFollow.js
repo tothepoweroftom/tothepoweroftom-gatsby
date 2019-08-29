@@ -4,7 +4,7 @@ import { v4 } from 'uuid'
 
 const Iframe = ({ url }) => (
   <div>
-        <iframe src={url} height={"56"} width={"300"} scrolling={"no"} frameborder={"0"} style={{border:"none", overflow:"hidden"}} allowtransparency={"true"}/>         
+        <iframe src={url} height={"56"} width={"300"} scrolling={"no"} frameBorder={"0"} style={{border:"none", overflow:"hidden"}} allowtransparency={"true"}/>         
   </div>
 )
 

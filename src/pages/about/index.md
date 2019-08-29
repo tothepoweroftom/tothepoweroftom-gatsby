@@ -18,7 +18,7 @@ More music related info can be found at [here](https://drive.google.com/drive/fo
 
 # Code
 
-I also work as a Creative Technologist. I combine my technical background in mathematics and programming for creative ends. I worked for 3 years with [MOBGEN:Lab](http://building01.nl) in Amsterdam, Netherlands. Currently I work with the company [Imagination of Things](http://imaginationofthings.com/whatif) as the Lead Creative Technologist.
+I also work as a Creative Technologist. I combine my technical background in mathematics and programming for creative ends. I worked for 3 years with MOBGEN:Lab in Amsterdam, Netherlands. Currently I work with the company [Imagination of Things](http://imaginationofthings.com/) as the Lead Creative Technologist and also in my own company [Wild Surmise Music](https://www.wildsurmisemusic.com/) 
 
 ## Tools of Choice
 
